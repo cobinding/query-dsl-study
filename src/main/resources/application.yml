@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/h2-db-zip/querydsl
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create # 애플리케이션 실행 시점에 모두 drop
+    properties:
+      hibernate:
+    #    show_sql: true # sql 쿼리 잘 보이게
+        format_sql: true # sql 쿼리 잘 보이게
+  logging.level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace # 날아가는 쿼리 중에 '?' 확인하는 쿼리
