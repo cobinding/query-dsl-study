@@ -12,5 +12,5 @@ spring:
     #    show_sql: true # sql 쿼리 잘 보이게
         format_sql: true # sql 쿼리 잘 보이게
   logging.level:
-    org.hibernate.SQL: debug
+  #  org.hibernate.SQL: debug
     org.hibernate.type: trace # 날아가는 쿼리 중에 '?' 확인하는 쿼리
