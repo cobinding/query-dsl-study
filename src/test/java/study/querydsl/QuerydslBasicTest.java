@@ -1,5 +1,7 @@
 package study.querydsl;
 
+import static study.querydsl.entity.QMember.*;
+
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -54,12 +56,12 @@ public class QuerydslBasicTest {
     @Test
     public void startQuerydsl() {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-        QMember m = new QMember("m");
+        // QMember m = new QMember("m");
 
         Member findMember = queryFactory
-            .select(m)
-            .from(m)
-            .where(m.username.eq("m1"))
+            .select(member)
+            .from(member)
+            .where(member.username.eq("m1"))
             .fetchOne();
 
         Assertions.assertThat(findMember.getUsername()).isEqualTo("m1");
