@@ -130,4 +130,40 @@ public class QuerydslBasicTest {
             MemberDto.class).getResultList();
     }
 
+    /*
+     * QueryDsl은 세 가지 방법 지원
+     * - 프로퍼티 접
+     * - 필드 직접 접근
+     * - 생성자
+     *  */
+    @Test
+    public void fineDtoBySetter() {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+
+        List<MemberDto> result = queryFactory.select(Projections.bean(MemberDto.class,
+                member.username, member.age))
+            .from(member)
+            .fetch();
+
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+    }
+
+    /*
+    Getter, Setter같은 lombok 상관없이 필드에 바로
+     */
+    @Test
+    public void fineDtoByField() {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+
+        List<MemberDto> result = queryFactory.select(Projections.fields(MemberDto.class,
+                member.username, member.age))
+            .from(member)
+            .fetch();
+
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+    }
 }
