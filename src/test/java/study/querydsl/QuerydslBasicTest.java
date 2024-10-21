@@ -3,6 +3,7 @@ package study.querydsl;
 import static study.querydsl.entity.QMember.member;
 
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
+import study.querydsl.dto.MemberDto;
 import study.querydsl.entity.Member;
 import study.querydsl.entity.Team;
 @SpringBootTest
@@ -115,6 +117,17 @@ public class QuerydslBasicTest {
             System.out.println("age = " + age);
 
         }
-
     }
+
+    /*
+     * JPQL의 경우 Member - MemberDto 이 두 타입이 달라서
+     * 마치 생성자를 만드는 것처럼 쿼리문을 작성해줘야함
+     * 생성자 방식만 지원함 . . .
+     * */
+    @Test
+    public void findDtoByJPQL() {
+        List<MemberDto> result = em.createQuery("select new study.querydsl.dto.MemberDto(m.username, m.age) from Member m",
+            MemberDto.class).getResultList();
+    }
+
 }
